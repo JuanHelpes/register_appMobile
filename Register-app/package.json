@@ -1,0 +1,44 @@
+{
+  "name": "register-app",
+  "version": "1.0.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "expo": "~53.0.9",
+    "expo-status-bar": "~2.2.3",
+    "react": "19.0.0",
+    "react-native": "0.79.2",
+    "date-fns": "*",
+    "lottie-ios": "4.5.1",
+    "@rneui/base": "4.0.0-rc.8",
+    "@rneui/themed": "*",
+    "@expo/vector-icons": "^14.1.0",
+    "lottie-react-native": "7.2.2",
+    "react-native-screens": "~4.10.0",
+    "@react-navigation/stack": "*",
+    "react-native-datepicker": "*",
+    "react-native-reanimated": "~3.17.5",
+    "@react-navigation/drawer": "*",
+    "@react-navigation/native": "*",
+    "react-native-date-picker": "*",
+    "react-native-gesture-handler": "~2.24.0",
+    "@react-navigation/bottom-tabs": "*",
+    "@react-native-community/picker": "*",
+    "@react-navigation/native-stack": "*",
+    "react-native-safe-area-context": "5.4.0",
+    "@react-native-community/async-storage": "*",
+    "@react-native-community/datetimepicker": "8.3.0",
+    "expo-router": "~5.0.7",
+    "expo-linking": "~7.1.5",
+    "expo-constants": "~17.1.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.1"
+  },
+  "private": true
+}

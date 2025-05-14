@@ -1,5 +1,7 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { Autentica } from './Rotes/Autentica';
+import { NavigationContainer } from "@react-navigation/native";
+import { Autentica } from "./Rotes/Autentica";
+import { TelaTab } from "./screens/TelaTab";
+import { TelaEventos } from "./screens/TelaEventos";
 
 // import { TelaCriarEvento } from './screens/TelaCriarEvento';
 // import { TelaEventos } from './screens/TelaEventos';
@@ -12,9 +14,9 @@ import { Autentica } from './Rotes/Autentica';
 // import { TelaEditaUsuario } from './screens/TelaEditaUsuario';
 
 export default function App() {
-  return(
+  return (
     <NavigationContainer>
-    <Autentica/>
+      <TelaEventos />
     </NavigationContainer>
     //<TelaEventos/>
     // <TelaVisualizarEvento/>

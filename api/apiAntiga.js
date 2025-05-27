@@ -12,14 +12,6 @@ const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 const jwt = require("jsonwebtoken");
 const privateKey = "chavePrivada123";
 
-const db = {
-  host: "18.214.104.16",
-  port: 3306,
-  user: "20193015283",
-  password: "20193015283",
-  database: "20193015283",
-};
-
 const middlewareValidarJWT = (req, res, next) => {
   const jwtToken = req.headers["authorization"];
   jwt.verify(jwtToken, privateKey, (err, userInfo) => {
@@ -78,49 +70,6 @@ function execSQLQueryGetAndWrite(sqlQry, id, res) {
     csvWriter
       .writeRecords(results)
       .then(() => console.log("The CSV file was written successfully"));
-  });
-}
-
-function execSQLQueryGetAndWritePresenca(sqlQry, id, res) {
-  const connection = mysql.createConnection({
-    host: "18.214.104.16",
-    port: 3306,
-    user: "20193015283",
-    password: "20193015283",
-    database: "20193015283",
-  });
-
-  connection.query(sqlQry, id, (error, results, fields) => {
-    console.log(error);
-    if (error) res.json(error);
-    connection.end();
-    console.log("executou!");
-
-    const csvWriter = createCsvWriter({
-      path: "presenca.csv",
-      header: [{ id: "nome", title: "Nomes" }],
-    });
-    console.log(results);
-    csvWriter
-      .writeRecords(results)
-      .then(() => console.log("The CSV file was written successfully"));
-  });
-}
-
-function execSQLQueryInsertMany(sqlQry, id, res) {
-  const connection = mysql.createConnection({
-    host: "18.214.104.16",
-    port: 3306,
-    user: "20193015283",
-    password: "20193015283",
-    database: "20193015283",
-  });
-
-  connection.query(sqlQry, id, (error, results, fields) => {
-    console.log(error);
-    if (error) res.json(error);
-    connection.end();
-    console.log("executou!");
   });
 }
 

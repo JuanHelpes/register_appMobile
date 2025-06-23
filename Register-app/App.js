@@ -15,9 +15,9 @@ import { TelaEventos } from "./screens/TelaEventos";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <TelaEventos />
-    </NavigationContainer>
+    // <NavigationContainer>
+    <TelaEventos />
+    // </NavigationContainer>
     //<TelaEventos/>
     // <TelaVisualizarEvento/>
     // <TelaEventosCompartilhados/>

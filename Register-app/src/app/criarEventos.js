@@ -4,11 +4,11 @@ import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
-import { getToken, getId } from "../Rotes/Autentica";
+import { getToken, getId } from "../../Rotes/Autentica";
 
-import { styles } from "../styles/styleCriarEvento";
+import { styles } from "../../styles/styleCriarEvento";
 
-export function TelaCriarEvento() {
+export default function TelaCriarEvento() {
   const [dataInicio, setDataInicio] = useState("");
   const [dataFinal, setDataFinal] = useState("");
   const [nomeEvento, setNomeEvento] = useState("");
@@ -54,45 +54,44 @@ export function TelaCriarEvento() {
     setShowDatePickerFinal(false);
   };
 
-  async function criarEvento() {
-    const token = await getToken();
-    const userId = await getId();
-
-    var userObj = {
-      nome: nomeEvento,
-      dataInicial: dataInicio,
-      dataFinal: dataFinal,
-      status: selectedValue,
-    };
-    var jsonBody = JSON.stringify(userObj);
-
-    fetch(
-      "https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/criaEvento/" +
-        userId,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          authorization: token,
-        },
-        body: jsonBody,
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.affectedRows > 0) {
-          setNomeEvento("");
-          // setDataInicio('');
-          // setDataFinal('');
-          // setSelectedValue('');
-          alert("Evento Cadastrado!");
-        } else alert("Erro!");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // async function criarEvento() {
+  // const token = await getToken();
+  // const userId = await getId();
+  // var userObj = {
+  //   nome: nomeEvento,
+  //   dataInicial: dataInicio,
+  //   dataFinal: dataFinal,
+  //   status: selectedValue,
+  // };
+  // var jsonBody = JSON.stringify(userObj);
+  // fetch(
+  //   'https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/criaEvento/' +
+  //     userId,
+  //   {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accept: 'application/json',
+  //       authorization: token,
+  //     },
+  //     body: jsonBody,
+  //   }
+  // )
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     if (data.affectedRows > 0){
+  //       setNomeEvento('');
+  //       // setDataInicio('');
+  //       // setDataFinal('');
+  //       // setSelectedValue('');
+  //       alert('Evento Cadastrado!');
+  //     }
+  //     else alert('Erro!');
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // }
 
   return (
     <View style={styles.container}>
@@ -159,7 +158,7 @@ export function TelaCriarEvento() {
 
         <TouchableOpacity
           style={styles.buttonForm}
-          onPress={() => criarEvento()}
+          // onPress={() => criarEvento()}
         >
           <Text style={styles.textButton}>Salvar</Text>
         </TouchableOpacity>

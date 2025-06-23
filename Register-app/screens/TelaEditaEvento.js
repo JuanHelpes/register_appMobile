@@ -1,25 +1,26 @@
-import { View, Text, TouchableOpacity, TextInput, Button } from 'react-native';
-import { Picker } from '@react-native-community/picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { format } from 'date-fns';
-import { getToken } from '../Rotes/Autentica';
-import { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput, Button } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
-import { styles } from '../styles/styleCriarEvento';
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { format } from "date-fns";
+import { getToken } from "../Rotes/Autentica";
+import { useState, useEffect } from "react";
+
+import { styles } from "../styles/styleCriarEvento";
 
 export function TelaEditaEvento({ route }) {
   const { idEvento } = route.params;
-  const [dataInicio, setDataInicio] = useState('');
-  const [dataFinal, setDataFinal] = useState('');
-  const [nomeEvento, setNomeEvento] = useState('');
-  const [status, setStatus] = useState('-');
+  const [dataInicio, setDataInicio] = useState("");
+  const [dataFinal, setDataFinal] = useState("");
+  const [nomeEvento, setNomeEvento] = useState("");
+  const [status, setStatus] = useState("-");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showDatePickerFinal, setShowDatePickerFinal] = useState(false);
 
   //data inicio
   const handleDateChange = (event, date) => {
     if (date) {
-      const formattedDate = format(date, 'yyyy-MM-dd');
+      const formattedDate = format(date, "yyyy-MM-dd");
       setDataInicio(formattedDate);
     }
     setShowDatePicker(false);
@@ -28,7 +29,7 @@ export function TelaEditaEvento({ route }) {
   //data final
   const handleDateChangeFinal = (event, date) => {
     if (date) {
-      const formattedDate = format(date, 'yyyy-MM-dd');
+      const formattedDate = format(date, "yyyy-MM-dd");
       setDataFinal(formattedDate);
     }
     setShowDatePickerFinal(false);
@@ -58,12 +59,12 @@ export function TelaEditaEvento({ route }) {
     const token = await getToken();
 
     fetch(
-      'https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/evento/' +
+      "https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/evento/" +
         idEvento,
       {
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+          "Content-Type": "application/json",
+          Accept: "application/json",
           authorization: token,
         },
       }
@@ -92,13 +93,13 @@ export function TelaEditaEvento({ route }) {
     var jsonBody = JSON.stringify(userObj);
 
     fetch(
-      'https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/EditaEvento/' +
+      "https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/EditaEvento/" +
         idEvento,
       {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+          "Content-Type": "application/json",
+          Accept: "application/json",
           authorization: token,
         },
         body: jsonBody,
@@ -106,8 +107,8 @@ export function TelaEditaEvento({ route }) {
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.affectedRows > 0) alert('Evento editado!');
-        else setMenssagem('Erro!');
+        if (data.affectedRows > 0) alert("Evento editado!");
+        else setMenssagem("Erro!");
       })
       .catch((err) => {
         console.log(err);
@@ -122,14 +123,14 @@ export function TelaEditaEvento({ route }) {
     <View style={styles.container}>
       <View style={styles.titleCriar}>
         <Text style={styles.textButtonTitle}>
-          {' '}
-          Editar Evento {nomeEvento ? nomeEvento : 'Nome do Evento'}{' '}
+          {" "}
+          Editar Evento {nomeEvento ? nomeEvento : "Nome do Evento"}{" "}
         </Text>
       </View>
       <View style={styles.form}>
         <TextInput
           style={styles.inputForm}
-          value={nomeEvento ? nomeEvento : 'Nome do Evento'}
+          value={nomeEvento ? nomeEvento : "Nome do Evento"}
           autoCapitalize="none"
           autoCorrect={true}
           onChangeText={(event) => setNomeEvento(event)}
@@ -150,7 +151,7 @@ export function TelaEditaEvento({ route }) {
           />
         )}
         <TextInput
-          value={dataInicio ? dataInicio : 'dataInicio'}
+          value={dataInicio ? dataInicio : "dataInicio"}
           placeholder="Data selecionada"
           editable={false}
         />
@@ -170,22 +171,24 @@ export function TelaEditaEvento({ route }) {
           />
         )}
         <TextInput
-          value={dataFinal ? dataFinal : 'dataFinal'}
+          value={dataFinal ? dataFinal : "dataFinal"}
           placeholder="Data selecionada"
           editable={false}
         />
         <Text>Status do Evento:</Text>
         <Picker
-          selectedValue={status != '-' ? String(status) : '0'}
+          selectedValue={status != "-" ? String(status) : "0"}
           style={{ height: 50, width: 200 }}
-          onValueChange={(itemValue) => setStatus(itemValue)}>
+          onValueChange={(itemValue) => setStatus(itemValue)}
+        >
           <Picker.Item label="Em execução" value="1" />
           <Picker.Item label="Finalizado" value="0" />
         </Picker>
 
         <TouchableOpacity
           style={styles.buttonForm}
-          onPress={() => editaEvento()}>
+          onPress={() => editaEvento()}
+        >
           <Text style={styles.textButton}>Salvar</Text>
         </TouchableOpacity>
       </View>

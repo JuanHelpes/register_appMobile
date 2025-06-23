@@ -1,29 +1,30 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
-import { TelaCriarEvento } from './TelaCriarEvento';
-import { TelaEventos } from './TelaEventos';
-import { TelaEventosCompartilhados } from './TelaEventosCompartilhados';
-import { TelaUsuario } from './TelaUsuario';
+import { TelaCriarEvento } from "./TelaCriarEvento";
+import { TelaEventos } from "./TelaEventos";
+import { TelaEventosCompartilhados } from "./TelaEventosCompartilhados";
+import { TelaUsuario } from "./TelaUsuario";
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
-export function TelaTab() {
+export default function TelaTab() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          position: 'absolute',
-          backgroundColor: '#696969',
+          position: "absolute",
+          backgroundColor: "#696969",
           botton: 30,
           left: 14,
           right: 14,
           borderRadius: 30,
           height: 60,
         },
-      }}>
+      }}
+    >
       <Tab.Screen
         name="TelaCriarEvento"
         component={TelaCriarEvento}
@@ -31,10 +32,10 @@ export function TelaTab() {
           tabBarIcon: ({ size, focused }) => {
             if (focused) {
               return (
-                <Ionicons name="add-circle" size={size} color={'#00ADB5'} />
+                <Ionicons name="add-circle" size={size} color={"#00ADB5"} />
               );
             }
-            return <Ionicons name="add-circle" size={size} color={'#FFFFFF'} />;
+            return <Ionicons name="add-circle" size={size} color={"#FFFFFF"} />;
           },
         }}
       />
@@ -48,7 +49,7 @@ export function TelaTab() {
                 <Ionicons
                   name="list-circle-outline"
                   size={size}
-                  color={'#00ADB5'}
+                  color={"#00ADB5"}
                 />
               );
             }
@@ -56,7 +57,7 @@ export function TelaTab() {
               <Ionicons
                 name="list-circle-outline"
                 size={size}
-                color={'#FFFFFF'}
+                color={"#FFFFFF"}
               />
             );
           },
@@ -72,7 +73,7 @@ export function TelaTab() {
                 <Ionicons
                   name="share-social-outline"
                   size={size}
-                  color={'#00ADB5'}
+                  color={"#00ADB5"}
                 />
               );
             }
@@ -80,7 +81,7 @@ export function TelaTab() {
               <Ionicons
                 name="share-social-outline"
                 size={size}
-                color={'#FFFFFF'}
+                color={"#FFFFFF"}
               />
             );
           },
@@ -92,21 +93,9 @@ export function TelaTab() {
         options={{
           tabBarIcon: ({ size, focused }) => {
             if (focused) {
-              return (
-                <Ionicons
-                  name="person"
-                  size={size}
-                  color={'#00ADB5'}
-                />
-              );
+              return <Ionicons name="person" size={size} color={"#00ADB5"} />;
             }
-            return (
-              <Ionicons
-                name="person"
-                size={size}
-                color={'#FFFFFF'}
-              />
-            );
+            return <Ionicons name="person" size={size} color={"#FFFFFF"} />;
           },
         }}
       />

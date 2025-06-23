@@ -1,6 +1,6 @@
-import Lottie from 'lottie-react-native';
-import { useRef } from 'react';
-import { BackHandler } from 'react-native';
+import Lottie from "lottie-react-native";
+import { useRef } from "react";
+import { BackHandler } from "react-native";
 
 export function TelaLoading() {
   const animation = useRef(null);
@@ -14,7 +14,7 @@ export function TelaLoading() {
     <Lottie
       autoPlay
       ref={animation}
-      source={require('../assets/loading.json')}
+      source={require("../assets/loading.json")}
     />
   );
 }

@@ -1,26 +1,26 @@
-import {} from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { TelaLogin } from '../screens/TelaLogin';
-import { TelaRegistro } from '../screens/TelaRegistro';
-import { TelaStack } from '../screens/TelaStack';
-import { TelaTab } from '../screens/TelaTab';
-import { TelaLoading } from '../screens/TelaLoading';
-import { TelaVisualizarEvento } from '../screens/TelaVisualizarEvento';
-import { TelaUsuario } from '../screens/TelaUsuario';
-import { TelaEditaEvento } from '../screens/TelaEditaEvento';
-import { TelaAddOrganizadores } from '../screens/TelaAddOrganizadores';
-import { TelaRegistraPresenca } from '../screens/TelaRegistraPresenca';
-import { TelaEditaUsuario } from '../screens/TelaEditaUsuario';
-import AsyncStorage from '@react-native-community/async-storage';
+import {} from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { TelaLogin } from "../screens/TelaLogin";
+import { TelaRegistro } from "../screens/TelaRegistro";
+import { TelaStack } from "../screens/TelaStack";
+import { TelaTab } from "../screens/TelaTab";
+import { TelaLoading } from "../screens/TelaLoading";
+import { TelaVisualizarEvento } from "../screens/TelaVisualizarEvento";
+import { TelaUsuario } from "../screens/TelaUsuario";
+import { TelaEditaEvento } from "../screens/TelaEditaEvento";
+import { TelaAddOrganizadores } from "../screens/TelaAddOrganizadores";
+import { TelaRegistraPresenca } from "../screens/TelaRegistraPresenca";
+import { TelaEditaUsuario } from "../screens/TelaEditaUsuario";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const Stack = createStackNavigator();
 
 export const setToken = async (token) => {
-  await AsyncStorage.setItem('userToken', token);
+  await AsyncStorage.setItem("userToken", token);
 };
 
 export const setId = async (usu_id) => {
-  await AsyncStorage.setItem('userId', usu_id);
+  await AsyncStorage.setItem("userId", usu_id);
 };
 
 export const clearToken = async () => {
@@ -29,12 +29,12 @@ export const clearToken = async () => {
 };
 
 export const getToken = async () => {
-  const userToken = await AsyncStorage.getItem('userToken');
+  const userToken = await AsyncStorage.getItem("userToken");
   return userToken;
 };
 
 export const getId = async () => {
-  const userId = await AsyncStorage.getItem('userId');
+  const userId = await AsyncStorage.getItem("userId");
   return userId;
 };
 

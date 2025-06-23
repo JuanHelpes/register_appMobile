@@ -1,18 +1,19 @@
 import { View, Text, TouchableOpacity, TextInput, Button } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-import { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
-import { getToken, getId } from "../Rotes/Autentica";
+import { getToken } from "../../../Rotes/Autentica";
+import { useState, useEffect } from "react";
 
-import { styles } from "../styles/styleCriarEvento";
+import { styles } from "../../../styles/styleCriarEvento";
 
-export function TelaCriarEvento() {
+export default function TelaEditaEvento() {
+  //   const { idEvento } = route.params;
   const [dataInicio, setDataInicio] = useState("");
   const [dataFinal, setDataFinal] = useState("");
   const [nomeEvento, setNomeEvento] = useState("");
-  const [selectedValue, setSelectedValue] = useState("1");
+  const [status, setStatus] = useState("-");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showDatePickerFinal, setShowDatePickerFinal] = useState(false);
 
@@ -54,55 +55,82 @@ export function TelaCriarEvento() {
     setShowDatePickerFinal(false);
   };
 
-  async function criarEvento() {
-    const token = await getToken();
-    const userId = await getId();
+  //   async function carregaEvento() {
+  //     const token = await getToken();
 
-    var userObj = {
-      nome: nomeEvento,
-      dataInicial: dataInicio,
-      dataFinal: dataFinal,
-      status: selectedValue,
-    };
-    var jsonBody = JSON.stringify(userObj);
+  //     fetch(
+  //       "https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/evento/" +
+  //         idEvento,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Accept: "application/json",
+  //           authorization: token,
+  //         },
+  //       }
+  //     )
+  //       .then((resp) => resp.json())
+  //       .then((data) => {
+  //         setNomeEvento(data[0].nome);
+  //         setDataInicio(data[0].dataInicial);
+  //         setDataFinal(data[0].dataFinal);
+  //         setStatus(data[0].status);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
 
-    fetch(
-      "https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/criaEvento/" +
-        userId,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          authorization: token,
-        },
-        body: jsonBody,
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.affectedRows > 0) {
-          setNomeEvento("");
-          // setDataInicio('');
-          // setDataFinal('');
-          // setSelectedValue('');
-          alert("Evento Cadastrado!");
-        } else alert("Erro!");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  //   async function editaEvento() {
+  //     const token = await getToken();
+
+  //     var userObj = {
+  //       nome: nomeEvento,
+  //       dataInicial: dataInicio,
+  //       dataFinal: dataFinal,
+  //       status: status,
+  //     };
+  //     var jsonBody = JSON.stringify(userObj);
+
+  //     fetch(
+  //       "https://juanhelpes-registrador-de-presenca.glitch.me/usuarios/EditaEvento/" +
+  //         idEvento,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Accept: "application/json",
+  //           authorization: token,
+  //         },
+  //         body: jsonBody,
+  //       }
+  //     )
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         if (data.affectedRows > 0) alert("Evento editado!");
+  //         else setMenssagem("Erro!");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+
+  //   useEffect(() => {
+  //     carregaEvento();
+  //   }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleCriar}>
-        <Text style={styles.textButtonTitle}> Criação de Evento </Text>
-      </View>
+      {/* <View style={styles.titleCriar}>
+        <Text style={styles.textButtonTitle}>
+          {" "}
+          Editar Evento {nomeEvento ? nomeEvento : ""}{" "}
+        </Text>
+      </View> */}
       <View style={styles.form}>
         <TextInput
           style={styles.inputForm}
-          placeholder="Nome do Evento"
+          value={nomeEvento ? nomeEvento : "Nome do Evento"}
           autoCapitalize="none"
           autoCorrect={true}
           onChangeText={(event) => setNomeEvento(event)}
@@ -117,13 +145,13 @@ export function TelaCriarEvento() {
         {showDatePicker && (
           <DateTimePicker
             style={styles.inputForm}
-            value={new Date()}
+            value={dataInicio ? new Date(dataInicio) : new Date()}
             onChange={handleDateChange}
             onTouchCancel={hideDatePickerModal}
           />
         )}
         <TextInput
-          value={dataInicio}
+          value={dataInicio ? dataInicio : "dataInicio"}
           placeholder="Data selecionada"
           editable={false}
         />
@@ -137,21 +165,21 @@ export function TelaCriarEvento() {
         {showDatePickerFinal && (
           <DateTimePicker
             style={styles.inputForm}
-            value={new Date()}
+            value={dataFinal ? new Date(dataFinal) : new Date()}
             onChange={handleDateChangeFinal}
             onTouchCancel={hideDatePickerModal1}
           />
         )}
         <TextInput
-          value={dataFinal}
+          value={dataFinal ? dataFinal : "dataFinal"}
           placeholder="Data selecionada"
           editable={false}
         />
-        <Text>Status:</Text>
+        <Text>Status do Evento:</Text>
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={status != "-" ? String(status) : "0"}
           style={{ height: 50, width: 200 }}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setStatus(itemValue)}
         >
           <Picker.Item label="Em execução" value="1" />
           <Picker.Item label="Finalizado" value="0" />
@@ -159,7 +187,7 @@ export function TelaCriarEvento() {
 
         <TouchableOpacity
           style={styles.buttonForm}
-          onPress={() => criarEvento()}
+          onPress={() => editaEvento()}
         >
           <Text style={styles.textButton}>Salvar</Text>
         </TouchableOpacity>

@@ -73,6 +73,49 @@ function execSQLQueryGetAndWrite(sqlQry, id, res) {
   });
 }
 
+function execSQLQueryGetAndWritePresenca(sqlQry, id, res) {
+  const connection = mysql.createConnection({
+    host: "18.214.104.16",
+    port: 3306,
+    user: "20193015283",
+    password: "20193015283",
+    database: "20193015283",
+  });
+
+  connection.query(sqlQry, id, (error, results, fields) => {
+    console.log(error);
+    if (error) res.json(error);
+    connection.end();
+    console.log("executou!");
+
+    const csvWriter = createCsvWriter({
+      path: "presenca.csv",
+      header: [{ id: "nome", title: "Nomes" }],
+    });
+    console.log(results);
+    csvWriter
+      .writeRecords(results)
+      .then(() => console.log("The CSV file was written successfully"));
+  });
+}
+
+function execSQLQueryInsertMany(sqlQry, id, res) {
+  const connection = mysql.createConnection({
+    host: "18.214.104.16",
+    port: 3306,
+    user: "20193015283",
+    password: "20193015283",
+    database: "20193015283",
+  });
+
+  connection.query(sqlQry, id, (error, results, fields) => {
+    console.log(error);
+    if (error) res.json(error);
+    connection.end();
+    console.log("executou!");
+  });
+}
+
 //seleciona todos os usuarios
 app.get("/usuarios", middlewareValidarJWT, (req, res) => {
   execSQLQuery("SELECT * FROM `20193015283`.Usuarios;", null, res);
